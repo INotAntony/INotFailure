@@ -14,11 +14,11 @@ using UnityEngine;
 public static class BattleHandler
 {
     public static void Battle(BattleEventData data)
-
     {
         //This needs to be replaced with some actual battle logic, at present 
         // we just award the maximum possible win to the player
-        float outcome = 1;
+        float random = Random.Range(-2.0f, 2.0f);
+        float outcome = (data.player.rhythm - data.player.style) + random;
 
         var results = new BattleResultEventData(data.player, data.npc, outcome);
 

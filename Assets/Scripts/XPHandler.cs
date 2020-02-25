@@ -17,16 +17,22 @@ public class XPHandler : MonoBehaviour
 {
     private void OnEnable()
     {
-        BattleEvents.OnBattleConclude += GainXP;
+        GameEvents.OnBattleConclude += GainXP;
     }
 
     private void OnDisable()
     {
+        GameEvents.OnBattleConclude -= GainXP;
     }
 
     public void GainXP(BattleResultEventData data)
     {
-        GameEvents.PlayerXPGain(100);
-        GameEvents.PlayerLevelUp(1);
+        data.player.xp += (data.player.rhythm + data.player.luck) * 25;
+        GameEvents.PlayerXPGain(data.player.xp);
+        int xplevelcap = 500 + (data.player.level * 100);
+        if (data.player.xp >= xplevelcap);
+        data.player.level += 1;
+        GameEvents.PlayerLevelUp(data.player.level);
     }
+}
                                     
